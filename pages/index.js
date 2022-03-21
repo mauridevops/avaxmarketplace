@@ -56,16 +56,20 @@ export default function Home() {
 
     useEffect(()=>{
          const loadAccount = async()=>{
-             const accounts = await web3Api.web3.eth.getAccounts();
-             setAccount(accounts[0])
-
-             
-
-              const myBalance = await web3Api.web3.eth.getBalance(accounts[0])
-              const convertBalance = await  web3Api.web3.utils.fromWei(myBalance,"ether")
-              setAccountBalance(convertBalance)
+            try{
+              const accounts = await web3Api.web3.eth.getAccounts();
+              setAccount(accounts[0])
  
-             
+              
+ 
+               const myBalance = await web3Api.web3.eth.getBalance(accounts[0])
+               const convertBalance = await  web3Api.web3.utils.fromWei(myBalance,"ether")
+               setAccountBalance(convertBalance)
+  
+              
+            }catch(e){
+              console.log(e)
+            }
          }
 
        web3Api.web3&& loadAccount();

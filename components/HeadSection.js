@@ -103,11 +103,7 @@ const HeadSection = () => {
                     
                            <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
                        <div className="rounded-md shadow">
-                           {
-                               !account?      
-                        <button className=" w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-red-500 hover:bg-gray-700 md:py-4 md:text-lg md:px-10"onClick={connectMetamask} >Connect Wallet</button>:
-                        <button className=" w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-500 hover:bg-gray-700 md:py-4 md:text-lg md:px-10" >{account.toString()}</button>
-                           }
+                      
 
                            <Link href="/create-nfts">
                            <a  className="mt-4 w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-red-600 hover:bg-gray-700 md:py-4 md:text-lg md:px-10">

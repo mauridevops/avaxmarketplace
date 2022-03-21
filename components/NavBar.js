@@ -1,8 +1,89 @@
 import React from 'react'
-import Link from 'next/link'
-
+import Link from "next/link"
+import { useState,useEffect } from 'react'
+import Web3 from "web3"
+import detectEthereumProvider from '@metamask/detect-provider'
 
  const NavBar = () => {
+
+  const[web3Api,setWe3Api] = useState({
+    provider:null,
+    web3:null
+})
+
+const providerChanged = (provider)=>{
+    provider.on("accountsChanged",_=>window.location.reload());
+    provider.on("chainChanged",_=>window.location.reload());
+
+}
+const[account,setAccount]= useState(null);
+useEffect(()=>{
+    const loadProvider = async()=>{
+        const provider =  await detectEthereumProvider();
+
+        if(provider){
+            providerChanged(provider);
+            setWe3Api({
+                provider,
+                web3:new Web3(provider),
+            })
+        } else {
+
+          window.alert("Unlock Your Wallet or Install a Wallet Like Metamask")
+            
+          router.push("https://metamask.io/download.html")
+        }
+
+
+    }
+
+    loadProvider()
+},[])
+
+
+useEffect(()=>{
+    const loadAccount = async()=>{
+        const accounts = await web3Api.web3.eth.getAccounts();
+        setAccount(accounts[0])
+
+        
+    }
+
+  web3Api.web3&& loadAccount();
+},[ web3Api.web3])
+
+
+useEffect(()=>{
+    const connect = async()=>{
+       await connectMetamask()
+    }
+    web3Api.web3&& account&&connect()
+   
+},[web3Api.web3&&account])
+
+
+const connectMetamask = async () => {
+    const currentProvider = await detectEthereumProvider();
+    console.log( "WE ARE IN META MASK CONNECT" );
+      if (currentProvider) {
+          // let web3InstanceCopy = new Web3(currentProvider);
+          // setWeb3Instance(web3InstanceCopy);
+          if (!window.ethereum.selectedAddress) {
+            await window.ethereum.request({ method: 'eth_requestAccounts' });
+          }
+          await window.ethereum.enable();
+          let currentAddress = window.ethereum.selectedAddress;
+          console.log(currentAddress);
+          setAccount(currentAddress);
+           const web3 = new Web3(currentProvider);
+          let amount = await web3.eth.getBalance(currentAddress);
+          amount = web3.utils.fromWei(web3.utils.toBN(amount), "ether");
+      } else {
+          console.log('Please install MetaMask!');
+      }
+
+  }
+
     return (
         <div>
 <nav className="bg-gray-800">
@@ -52,9 +133,14 @@ import Link from 'next/link'
             </Link>
                 
           </div>
+          
         </div>
       </div>
-    
+      {
+                               !account?      
+                        <button className=" flex items-start justify-center p-8  border border-transparent text-base font-medium rounded-md text-white bg-red-500 hover:bg-gray-700 md:py-4 md:text-lg md:px-10"onClick={connectMetamask} >Connect Wallet</button>:
+                        <button className=" flex items-start justify-center p-8  border border-transparent text-base font-medium rounded-md text-white bg-gray-500 hover:bg-gray-700 md:py-4 md:text-lg md:px-10" >{account.toString()}</button>
+                           }
     </div>
   </div>
 
@@ -81,3 +167,5 @@ import Link from 'next/link'
 }
 
 export default NavBar;
+
+
