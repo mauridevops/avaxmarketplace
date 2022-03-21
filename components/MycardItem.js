@@ -14,7 +14,7 @@ import React from 'react'
           <div className="grid grid-cols-4 w-72 lg:w-5/6 m-auto bg-indigo-50 mt-5 p-4 lg:p-4 rounded-2xl">
             <div className="col-span-1 flex">
  
-              <img className="flex justify-center w-15 lg:w-12" src="https://img.icons8.com/fluency/48/000000/ethereum.png" alt="music icon"/>
+              <img className="flex justify-center w-15 lg:w-12" src="./avx.png" alt="music icon"/>
             </div>
             <div className="col-span-2 pt-1 ">
               <p className="text-gray-800 font-bold lg:text-sm">Price</p>
