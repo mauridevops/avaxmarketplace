@@ -138,8 +138,8 @@ const connectMetamask = async () => {
       </div>
       {
                                !account?      
-                        <button className=" flex items-start justify-center p-8  border border-transparent text-base font-medium rounded-md text-white bg-red-500 hover:bg-gray-700 md:py-4 md:text-lg md:px-10"onClick={connectMetamask} >Connect Wallet</button>:
-                        <button className=" flex items-start justify-center p-8  border border-transparent text-base font-medium rounded-md text-white bg-gray-500 hover:bg-gray-700 md:py-4 md:text-lg md:px-10" >{account.toString()}</button>
+                        <button className=" py-1  justify-center p-8  border border-transparent text-base font-medium rounded-md text-white bg-red-500 hover:bg-gray-700 md:py-4 md:text-lg md:px-10"onClick={connectMetamask} >Connect Wallet</button>:
+                        <button className=" py-3  text-white bg-gray-500 hover:bg-gray-700 p-3 rounded " >{account.toString()}</button>
                            }
     </div>
   </div>
